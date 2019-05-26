@@ -246,6 +246,7 @@ void ShowLkList(LinkListNode* pHead)
 	}
 }
 
+//test push
 int main(void)
 {
 	ElemType MySeq[] = {1, 2, 3, 4, 5};
