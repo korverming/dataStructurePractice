@@ -247,7 +247,7 @@ void ShowLkList(LinkListNode* pHead)
 }
 
 //test push
-int main(void)
+int main4(void)
 {
 	ElemType MySeq[] = {1, 2, 3, 4, 5};
 	LinkListNode* pHead = Create_Rear_LkList(MySeq, 5);
