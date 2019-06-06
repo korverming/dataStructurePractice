@@ -137,7 +137,7 @@ void ShowList(LinkPolyNode* pHead)
 	}
 }
 //程序是调出来的，不是一蹴而就的，只有掌握了原理才能完成
-int main(void)
+int main9(void)
 {
 	//polyA: 1 + 2x + 3x^2
 	//polyB: 3x + x^4
