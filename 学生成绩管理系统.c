@@ -107,7 +107,7 @@ void DisplayStu(SeqList* pList, int stuNo)
 	printf("该学生不存在\n");
 }
 
-int main()
+int main10()
 {
 	SeqList* stuList = InitSeq();
 	node stu[2];
