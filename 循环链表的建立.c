@@ -65,7 +65,7 @@ LinkCircleListNode* Connect_Circle_LkList(LinkCircleListNode* ra, LinkCircleList
 	return rb;
 }
 
-int main()
+int main11()
 {
 	//int arr[] = {11, 22, 33, 44, 55};
 	//LinkCircleListNode* pRear = Create_Circle_LkList(arr, 5);
