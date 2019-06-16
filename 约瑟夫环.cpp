@@ -29,7 +29,7 @@ LinkJoeNode* CreateLkList(int arr[], int length)
 }
 
 
-int main(void)
+int main12(void)
 {
 	//从位置1开始，初始30个人，剩余15个人
 	int s = 1;
