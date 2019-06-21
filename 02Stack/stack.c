@@ -94,7 +94,7 @@ BOOL GetSeqStack(SeqStack* s, ElemType* data)
 	*data = s->stack[s->top];
 	return TRUE;
 }
-int main(void)
+int main1(void)
 {
 	SeqStack s;
 	init(&s);
