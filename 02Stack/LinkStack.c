@@ -40,7 +40,7 @@ LinkStack* PopLkStack(LinkStack* top, datatype* pData)
 	return top;
 }
 
-int main(void)
+int main2(void)
 {
 	//必须初始化
 	//否则栈顶指针的pNext是野指针
