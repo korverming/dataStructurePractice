@@ -12,7 +12,7 @@ int FunGaosi(int value)
 	return sum;
 }
 
-int main(void)
+int main3(void)
 {
 	printf("%d\n", FunGaosi(4));
 	getchar();
