@@ -2,7 +2,7 @@
 //进行刻画，将这些业务问题，变成数据结构的组织问题
 #include <stdio.h>
 
-int main(void)
+int main4(void)
 {
 	int n = 50;
 	int queue[42] = { 0, 1, 1, 0 };//0是换行
