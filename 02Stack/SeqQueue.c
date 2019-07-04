@@ -63,7 +63,7 @@ BOOL DeSqQueue(SeqQueue* sq)
 	return -1;
 }
 
-int main(void)
+int main5(void)
 {
 	return 0;
 }
