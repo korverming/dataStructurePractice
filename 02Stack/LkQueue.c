@@ -81,7 +81,7 @@ void Destroy_LkQueue(LinkQueue* lq)
 	lq->rear = NULL;
 }
 
-int main(void)
+int main6(void)
 {
 	LinkQueue node;
 	LinkQueue *lpPtr = &node;
