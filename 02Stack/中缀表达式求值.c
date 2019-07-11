@@ -1,20 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "SeqStack.h"
 
-//假定处理的是一位数，没有括号
-#define stackSize 100
-
-#define TRUE 1
-#define FALSE 0
-
-typedef int BOOL;
-typedef int ElemType;//元素类型
-
-typedef struct
-{
-	ElemType stack[stackSize];
-	int top;//栈顶指针
-} SeqStack;
 
 ///栈的初始化
 BOOL init(SeqStack* pStack)
@@ -121,7 +108,7 @@ int two_res(int oper, int opand1, int opand2)
 	}
 }
 
-int main(void)
+int main7(void)
 {
 	char expression[] = "8*9-4/2";
 	int position = 0;//扫描的字符串
