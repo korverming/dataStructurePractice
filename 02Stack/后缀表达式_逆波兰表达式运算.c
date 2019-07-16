@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "SeqStack.h"
 
-int main(void)
+int main8(void)
 {
 	char expression[] = "1562/-3*+#";
 	int position = 0;
