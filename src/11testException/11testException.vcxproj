@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{D1B83768-E586-451D-96EC-99DED65326CC}</ProjectGuid>
+    <ProjectGuid>{573C7E90-D58F-4D4E-9960-A421CB049891}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My09testSmartPointer</RootNamespace>
+    <RootNamespace>My11testException</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -88,7 +88,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\DTDataStructure</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DTDataStructure\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
