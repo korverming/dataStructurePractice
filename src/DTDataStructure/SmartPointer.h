@@ -1,6 +1,6 @@
-#ifndef SmartPointer_H_
-#define SmartPointer_H_
-
+#ifndef SmartPointer_H
+#define SmartPointer_H
+#include "Object.h"
 
 namespace DTLib
 {
@@ -8,7 +8,7 @@ namespace DTLib
 /////////////////////////////////////
 ////unique_autoPtr
 template <typename T>
-class SmartPointer
+class SmartPointer: public Object
 {
 protected:
 	T* m_pointer;
