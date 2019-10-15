@@ -154,6 +154,7 @@
     <ClInclude Include="Exception.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="SeqList.h" />
     <ClInclude Include="SmartPointer.h" />
   </ItemGroup>
   <ItemGroup>
