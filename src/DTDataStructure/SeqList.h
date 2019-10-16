@@ -12,14 +12,14 @@ protected:
 	T* m_array;
 	int m_length;
 public:
-	bool insert(int i, const T& e)
+	virtual bool insert(int i, const T& e)
 	{
 		bool ret = (0 <= i) && (i <= m_length);
 		ret = ret && (m_length < capacity());
 
 		if (ret)
 		{
-			for (int p = m_lenght - 1; p >= i; p--)
+			for (int p = m_length - 1; p >= i; p--)
 				m_array[p + 1] = m_array[p];
 
 			m_array[i] = e;
@@ -29,7 +29,7 @@ public:
 		return ret;
 	}
 
-	bool remove(int i)
+	virtual bool remove(int i)
 	{
 		bool ret = (0 <= i) && (i < m_length);
 
@@ -44,7 +44,7 @@ public:
 		return ret;
 	}
 
-	bool set(int i, const T& e)
+	virtual bool set(int i, const T& e)
 	{
 		bool ret = (0 <= i) && (i < m_length);
 
@@ -54,7 +54,7 @@ public:
 		return ret;
 	}
 
-	bool get(int i, T& e) const
+	virtual bool get(int i, T& e) const
 	{
 		bool ret = (0 <= i) && (i < m_length);
 
@@ -64,11 +64,12 @@ public:
 		return ret;
 	}
 
-	int length() const
+	virtual int length() const
 	{
 		return m_length;
 	}
-	void clear()
+
+	virtual void clear()
 	{
 		m_length = 0;
 	}
