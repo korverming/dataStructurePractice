@@ -25,10 +25,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13testNewHierachy", "..\13t
 		{A11CFED5-AD83-49A0-BDD5-10D9C8064F04} = {A11CFED5-AD83-49A0-BDD5-10D9C8064F04}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "17testStaticAndDynamicList", "..\17testStaticAndDynamicList\17testStaticAndDynamicList.vcxproj", "{5F5AD343-70F4-4E58-8CEA-9EA2C8B41F00}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A11CFED5-AD83-49A0-BDD5-10D9C8064F04} = {A11CFED5-AD83-49A0-BDD5-10D9C8064F04}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "..\test\test.vcxproj", "{5F5AD343-70F4-4E58-8CEA-9EA2C8B41F00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

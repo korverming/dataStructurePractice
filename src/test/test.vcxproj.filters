@@ -15,39 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SmartPointer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Exception.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SeqList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Array.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticArray.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Exception.cpp">
+    <ClCompile Include="test17.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
+    <ClCompile Include="test19.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
