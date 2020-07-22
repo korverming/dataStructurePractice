@@ -16,7 +16,7 @@ protected:
 		Node* next;
 	};
 
-	Node m_header;
+	mutable Node m_header;
 	int m_length;
 public:
 	LinkList()
@@ -42,7 +42,7 @@ public:
 			{
 				Node* current = &m_header;
 
-				for (int p = 0; p < i; i++)
+				for (int p = 0; p < i; p++)
 					current = current->next;
 
 				node->value = e;
@@ -59,9 +59,9 @@ public:
 					"No memory to insert new element ..."
 				);
 			}
-
-			return ret;
 		}
+
+		return ret;
 	}
 
 	virtual bool remove(int i)
@@ -103,6 +103,22 @@ public:
 		return ret;
 	}
 
+	T get(int i) const
+	{
+		T ret;
+
+		if (get(i, ret))
+			return ret;
+		else
+			THROW_EXCEPTION
+			(
+				IndexOutOfBoundsException,
+				"Invalid parameter i to get element ..."
+			);
+
+		return ret;
+	}
+
 	virtual bool get(int i, T& e) const
 	{
 		bool ret = ((0 <= i) && (i < m_length));
@@ -136,7 +152,7 @@ public:
 			delete toDel;
 		}
 
-		m_length = 0
+		m_length = 0;
 	}
 
 	~LinkList()
