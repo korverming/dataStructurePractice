@@ -16,8 +16,24 @@ protected:
 		Node* next;
 	};
 
-	mutable Node m_header;
+	mutable struct: public Object
+	{
+		char reserved[sizeof(T)];
+		Node* next;
+	} m_header;
+
 	int m_length;
+
+	Node* position(int i) const
+	{
+		Node* ret = reinterpret_cast<Node*>(&m_header);
+
+		for (int p = 0; p < i; p++)
+			ret = ret->next;
+
+		return ret;
+	}
+
 public:
 	LinkList()
 	{
@@ -40,10 +56,7 @@ public:
 
 			if (node != NULL)
 			{
-				Node* current = &m_header;
-
-				for (int p = 0; p < i; p++)
-					current = current->next;
+				Node* current = position(i);
 
 				node->value = e;
 				node->next = current->next;
@@ -70,11 +83,7 @@ public:
 
 		if (ret)
 		{
-			Node* current = &m_header;
-
-			for (int p = 0; p < i; p++)
-				current = current->next;
-
+			Node* current = position(i);
 			Node* toDel = current->next;
 
 			current->next = toDel->next;
@@ -91,14 +100,7 @@ public:
 		bool ret = ((0 <= i) && (i < m_length));
 
 		if (ret)
-		{
-			Node* current = &m_header;
-
-			for (int p = 0; p < i; p++)
-				current = current->next;
-
-			current->next->value = e;
-		}
+			position(i)->next->value = e;
 
 		return ret;
 	}
@@ -124,14 +126,7 @@ public:
 		bool ret = ((0 <= i) && (i < m_length));
 
 		if (ret)
-		{
-			Node* current = &m_header;
-
-			for (int p = 0; p < i; p++)
-				current = current->next;
-
-			e = current->next->value;
-		}
+			e = position(i)->next->value;
 
 		return ret;
 	}
