@@ -41,12 +41,12 @@ public:
 		m_length = 0;
 	}
 
-	virtual bool insert(const T& e)
+	virtual bool insert(const T& e) override
 	{
 		return insert(m_length, e);
 	}
 
-	virtual bool insert(int i, const T& e)
+	virtual bool insert(int i, const T& e) override
 	{
 		bool ret = ((0 <= i) && (i <= m_length));
 
@@ -77,7 +77,7 @@ public:
 		return ret;
 	}
 
-	virtual bool remove(int i)
+	virtual bool remove(int i) override
 	{
 		bool ret = ((0 <= i) && (i < m_length));
 
@@ -95,7 +95,7 @@ public:
 
 		return ret;
 	}
-	virtual bool set(int i, const T& e)
+	virtual bool set(int i, const T& e) override
 	{
 		bool ret = ((0 <= i) && (i < m_length));
 
@@ -121,7 +121,7 @@ public:
 		return ret;
 	}
 
-	virtual bool get(int i, T& e) const
+	virtual bool get(int i, T& e) const override
 	{
 		bool ret = ((0 <= i) && (i < m_length));
 
@@ -131,12 +131,35 @@ public:
 		return ret;
 	}
 
-	virtual int length() const
+	virtual int find(const T& e) const override
+	{
+		int ret = -1;
+		int i = 0;
+		Node* node = m_header.next;
+
+		while (node)
+		{
+			if (node->value == e)
+			{
+				ret = i;
+				break;
+			}
+			else
+			{
+				node = node->next;
+				i++;
+			}
+		}
+
+		return ret;
+	}
+
+	virtual int length() const override
 	{
 		return m_length;
 	}
 
-	virtual void clear()
+	virtual void clear() override
 	{
 		while (m_header.next)
 		{

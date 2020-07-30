@@ -21,6 +21,16 @@ void DTLib::Object::operator delete[](void* p) throw()
 	free(p);
 }
 
+bool DTLib::Object::operator==(const Object& obj)
+{
+	return (this == &obj);
+}
+
+bool DTLib::Object::operator!=(const Object& obj)
+{
+	return (this != &obj);
+}
+
 DTLib::Object::~Object()
 {
 }
