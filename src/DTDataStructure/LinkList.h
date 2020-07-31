@@ -23,6 +23,8 @@ protected:
 	} m_header;
 
 	int m_length;
+	int m_step;
+	Node* m_current;
 
 	Node* position(int i) const
 	{
@@ -39,6 +41,8 @@ public:
 	{
 		m_header.next = nullptr;
 		m_length = 0;
+		m_step = 1;
+		m_current = nullptr;
 	}
 
 	virtual bool insert(const T& e) override
@@ -171,6 +175,48 @@ public:
 		}
 
 		m_length = 0;
+	}
+
+	bool move(int i, int step = 1)
+	{
+		bool ret = (0 <= i) && (i < m_length) && (step > 0);
+
+		if (ret)
+		{
+			m_current = position(i)->next;
+			m_step = step;
+		}
+
+		return ret;
+	}
+
+	bool end()
+	{
+		return (m_current == nullptr);
+	}
+
+	T current()
+	{
+		if (!end())
+			return m_current->value;
+		else
+			THROW_EXCEPTION
+			(
+				InvalidOperationException,
+				"No value at current position ..."
+			);
+	}
+
+	bool next()
+	{
+		int i = 0;
+		while ((i < m_step) && !end())
+		{
+			m_current = m_current->next;
+			i++;
+		}
+
+		return (i == m_step);
 	}
 
 	~LinkList()
