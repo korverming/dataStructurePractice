@@ -126,3 +126,19 @@ void test25()
 		cout << e.message() << endl;
 	}*/
 }
+
+void test26_1()
+{
+	try
+	{
+		NullPointerException npe;
+
+		cout << "throw" << endl;
+
+		throw npe;
+	}
+	catch (const Exception& e)
+	{
+		cout << "catch" << endl;
+	}
+}
