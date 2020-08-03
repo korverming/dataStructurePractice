@@ -102,9 +102,9 @@ public:
 
 			current->next = toDel->next;
 
-			destroy(toDel);
-
 			m_length--;
+
+			destroy(toDel);
 		}
 
 		return ret;
@@ -181,10 +181,10 @@ public:
 
 			m_header.next = toDel->next;
 
+			m_length--;
+
 			destroy(toDel);
 		}
-
-		m_length = 0;
 	}
 
 	bool move(int i, int step = 1)
