@@ -196,3 +196,16 @@ void test26_3()
 	}
 		
 }
+
+void test26_4()
+{
+	StaticLinkList<int, 10> list;
+
+	for (int i = 0; i < 5; i++)
+		list.insert(i);
+
+	list.remove(3);
+
+	for (int i = 0; i < list.length(); i++)
+		cout << list.get(i) << endl;
+}
