@@ -100,6 +100,9 @@ public:
 			Node* current = position(i);
 			Node* toDel = current->next;
 
+			if (m_current == toDel)
+				m_current = toDel->next;
+
 			current->next = toDel->next;
 
 			m_length--;

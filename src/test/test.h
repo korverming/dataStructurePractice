@@ -177,3 +177,22 @@ void test26_2()
 		cout << list.length() << endl;
 	}
 }
+
+void test26_3()
+{
+	LinkList<int> list;
+
+	for (int i = 0; i < 5; i++)
+		list.insert(i);
+
+	for (list.move(0); !list.end(); list.next())
+	{
+		if (list.current() == 3)
+		{
+			list.remove(list.find(list.current()));
+
+			cout << list.current() << endl;
+		}
+	}
+		
+}
