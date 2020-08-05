@@ -1,6 +1,7 @@
 #include <iostream>
 #include "LinkList.h"
 #include "StaticLinkList.h"
+#include "DynamicArray.h"
 
 using namespace DTLib;
 using namespace std;
@@ -208,4 +209,34 @@ void test26_4()
 
 	for (int i = 0; i < list.length(); i++)
 		cout << list.get(i) << endl;
+}
+
+void test26_5()
+{
+	DynamicArray<DynamicArray<int>> d;
+
+	d.resize(3);
+
+	for (int i = 0; i < d.length(); i++)
+	{
+		d[i].resize(i + 1);
+	}
+
+	for (int i = 0; i < d.length(); i++)
+	{
+		for (int j = 0; j < d[i].length(); j++)
+		{
+			d[i][j] = i + j;
+		}
+	}
+
+	for (int i = 0; i < d.length(); i++)
+	{
+		for (int j = 0; j < d[i].length(); j++)
+		{
+			cout << d[i][j] << " ";
+		}
+
+		cout << endl;
+	}
 }
