@@ -2,6 +2,7 @@
 #include "LinkList.h"
 #include "StaticLinkList.h"
 #include "DynamicArray.h"
+#include "SmartPointer.h"
 
 using namespace DTLib;
 using namespace std;
@@ -239,4 +240,25 @@ void test26_5()
 
 		cout << endl;
 	}
+}
+
+void test27()
+{
+	class Test : public Object
+	{
+	public:
+		Test()
+		{
+			cout << "Test()" << endl;
+		}
+
+		~Test()
+		{
+			cout << "~Test()" << endl;
+		}
+	};
+
+	SmartPointer<Test> sp = new Test();
+	SmartPointer<Test> spn;
+	spn = sp;
 }
