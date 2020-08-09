@@ -3,6 +3,7 @@
 #include "StaticLinkList.h"
 #include "DynamicArray.h"
 #include "SmartPointer.h"
+#include "SharedPointer.h"
 
 using namespace DTLib;
 using namespace std;
@@ -261,4 +262,41 @@ void test27()
 	SmartPointer<Test> sp = new Test();
 	SmartPointer<Test> spn;
 	spn = sp;
+}
+
+void test28()
+{
+	class Test : public Object
+	{
+	public:
+		int value;
+		Test(): value(0)
+		{
+			cout << "Test()" << endl;
+		}
+
+		~Test()
+		{
+			cout << "~Test()" << endl;
+		}
+	};
+
+	SharedPointer<Test> sp0 = new Test();
+	SharedPointer<Test> sp1 = sp0;
+	SharedPointer<Test> sp2 = nullptr;
+
+	sp2 = sp1;
+
+	sp2->value = 100;
+
+	cout << sp0->value << endl;
+	cout << sp1->value << endl;
+	cout << sp2->value << endl;
+
+	sp2.clear();
+
+	cout << (sp0 == sp2) << endl;
+
+	/*const SharedPointer<Test> sp3 = new Test();
+	sp3->value = 100;*/
 }
