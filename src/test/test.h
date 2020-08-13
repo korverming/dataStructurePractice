@@ -4,6 +4,7 @@
 #include "DynamicArray.h"
 #include "SmartPointer.h"
 #include "SharedPointer.h"
+#include "CircleList.h"
 
 using namespace DTLib;
 using namespace std;
@@ -299,4 +300,27 @@ void test28()
 
 	/*const SharedPointer<Test> sp3 = new Test();
 	sp3->value = 100;*/
+}
+
+void test29()
+{
+	int n = 41;
+	int s = 1;
+	int m = 3;
+
+	CircleList<int> cl;
+
+	for (int i = 1; i <= n; i++)
+	{
+		cl.insert(i);
+	}
+
+	cl.move(s - 1, m - 1);
+
+	while (cl.length() > 0)
+	{
+		cl.next();
+		cout << cl.current() << endl;
+		cl.remove(cl.find(cl.current()));
+	}
 }

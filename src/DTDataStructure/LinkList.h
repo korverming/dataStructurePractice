@@ -122,7 +122,7 @@ public:
 		return ret;
 	}
 
-	T get(int i) const
+	virtual T get(int i) const
 	{
 		T ret;
 
@@ -190,7 +190,7 @@ public:
 		}
 	}
 
-	bool move(int i, int step = 1)
+	virtual bool move(int i, int step = 1)
 	{
 		bool ret = (0 <= i) && (i < m_length) && (step > 0);
 
@@ -203,12 +203,12 @@ public:
 		return ret;
 	}
 
-	bool end()
+	virtual bool end()
 	{
 		return (m_current == nullptr);
 	}
 
-	T current()
+	virtual T current()
 	{
 		if (!end())
 			return m_current->value;
@@ -220,7 +220,7 @@ public:
 			);
 	}
 
-	bool next()
+	virtual bool next()
 	{
 		int i = 0;
 		while ((i < m_step) && !end())
