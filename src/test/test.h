@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include "LinkList.h"
 #include "StaticLinkList.h"
 #include "DynamicArray.h"
@@ -6,6 +7,7 @@
 #include "SharedPointer.h"
 #include "CircleList.h"
 #include "DualLinkList.h"
+#include "LinuxList.h"
 
 using namespace DTLib;
 using namespace std;
@@ -318,12 +320,12 @@ void test29()
 
 	cl.move(s - 1, m - 1);
 
-	while (cl.length() > 0)
-	{
-		cl.next();
-		cout << cl.current() << endl;
-		cl.remove(cl.find(cl.current()));
-	}
+while (cl.length() > 0)
+{
+	cl.next();
+	cout << cl.current() << endl;
+	cl.remove(cl.find(cl.current()));
+}
 }
 
 void test30()
@@ -367,4 +369,121 @@ void test30()
 	{
 		cout << dl.current() << endl;
 	}
+}
+
+void test32_1()
+{
+	struct Node
+	{
+		struct list_head head;
+		int value;
+	};
+
+	struct Node l = { 0 };
+
+	INIT_LIST_HEAD(&l.head);
+}
+
+void test32_2()
+{
+	struct Node
+	{
+		struct list_head head;
+		int value;
+	};
+
+	struct Node l = { 0 };
+	struct list_head* list = (struct list_head*)&l;
+	struct list_head* slider = nullptr;
+
+	INIT_LIST_HEAD(&l.head);
+
+	printf("Insert begin ...\n");
+
+	for (int i = 0; i < 5; i++)
+	{
+		struct Node* n = (struct Node*)malloc(sizeof(struct Node));
+		n->value = i;
+
+		list_add_tail((struct list_head*)n, list);
+	}
+
+	list_for_each(slider, list)
+	{
+		printf("%d\n", ((struct Node*)slider)->value);
+	}
+
+	printf("Insert end ...\n");
+
+	printf("Delete begin ...\n");
+
+	list_for_each(slider, list)
+	{
+		if (((struct Node*)slider)->value == 3)
+		{
+			list_del(slider);
+			free(slider);
+			break;
+		}
+	}
+
+	list_for_each(slider, list)
+	{
+		printf("%d\n", ((struct Node*)slider)->value);
+	}
+
+	printf("Delete end ...\n");
+}
+
+void test32_3()
+{
+	struct Node
+	{
+		int value;
+		struct list_head head;
+	};
+
+	struct Node l = { 0 };
+	struct list_head* list = &l.head;
+	struct list_head* slider = nullptr;
+
+	INIT_LIST_HEAD(&l.head);
+
+	printf("Insert begin ...\n");
+
+	for (int i = 0; i < 5; i++)
+	{
+		struct Node* n = (struct Node*)malloc(sizeof(struct Node));
+		n->value = i;
+
+		list_add(&n->head, list);
+	}
+
+	list_for_each(slider, list)
+	{
+		printf("%d\n", list_entry(slider, struct Node, head)->value);
+	}
+
+	printf("Insert end ...\n");
+
+	printf("Delete begin ...\n");
+
+	list_for_each(slider, list)
+	{
+		struct Node* n = list_entry(slider, struct Node, head);
+
+		if (n->value == 3)
+		{
+			list_del(slider);
+			free(n);
+			break;
+		}
+	}
+
+	list_for_each(slider, list)
+	{
+		printf("%d\n", list_entry(slider, struct Node, head)->value);
+	}
+
+	printf("Delete end ...\n");
 }
