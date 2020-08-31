@@ -8,6 +8,7 @@
 #include "CircleList.h"
 #include "DualLinkList.h"
 #include "LinuxList.h"
+#include "DualCircleList.h"
 
 using namespace DTLib;
 using namespace std;
@@ -486,4 +487,79 @@ void test32_3()
 	}
 
 	printf("Delete end ...\n");
+}
+
+void test33_1()
+{
+	DualCircleList<int> dl;
+
+	/*for (int i = 0; i < 5; i++)
+	{
+		dl.insert(0, i);
+		dl.insert(0, 5);
+	}*/
+
+	for (int i = 0; i < 5; i++)
+	{
+		dl.insert(i);
+		dl.insert(5);
+	}
+
+	//for (dl.move(0); !dl.end(); dl.next())
+	//{
+	//	cout << dl.current() << endl;
+	//}
+
+	cout << "begin" << endl;
+
+	//for (dl.move(dl.length() - 1); !dl.end(); dl.pre())
+	//{
+	//	cout << dl.current() << endl;
+	//}
+
+	dl.move(dl.length() - 1);
+
+	while (dl.find(5) != -1)
+	{
+		if (dl.current() == 5)
+		{
+			cout << dl.current() << endl;
+			dl.remove(dl.find(dl.current()));
+		}
+		else
+			dl.pre();
+	}
+
+	cout << "end" << endl;
+
+	//for (int i = 0; i < dl.length(); i++)
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	cout << dl.get(i) << endl;
+	//}
+
+	int i = 0;
+	for (dl.move(dl.length() - 1); (i < dl.length()) && !dl.end(); dl.pre(), i++)
+	{
+		cout << dl.current() << endl;
+	}
+}
+
+void test33_2()
+{
+	struct Node : public Object
+	{
+		list_head head;
+		int value;
+	};
+
+	Node node;
+	list_head* ld = &node.head;
+
+	Node* pn1 = reinterpret_cast<Node*>(ld);
+	Node* pn2 = list_entry(ld, Node, head);
+
+	cout << "pn1 = " << pn1 << endl;
+	cout << "pn2 = " << pn2 << endl;
+
 }
