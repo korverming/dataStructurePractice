@@ -159,6 +159,7 @@
     <ClInclude Include="DynamicList.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="LinkList.h" />
+    <ClInclude Include="LinkStack.h" />
     <ClInclude Include="LinuxList.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Object.h" />

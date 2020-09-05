@@ -10,6 +10,7 @@
 #include "LinuxList.h"
 #include "DualCircleList.h"
 #include "StaticStack.h"
+#include "LinkStack.h"
 
 using namespace DTLib;
 using namespace std;
@@ -588,4 +589,66 @@ void test34_1()
 		stack.pop();
 	}
 		
+}
+
+void test35_1()
+{
+	auto is_left = [](char c)
+	{
+		return (c == '(') || (c == '{') || (c == '[') || (c == '<');
+	};
+
+	auto is_right = [](char c)
+	{
+		return (c == ')') || (c == '}') || (c == ']') || (c == '>');
+	};
+
+	auto is_quot = [](char c)
+	{
+		return (c == '\'') || (c == '\"');
+	};
+
+	auto is_match = [](char l, char r)
+	{
+		return ((l == '(') && (r == ')')) ||
+			((l == '{') && (r == '}')) ||
+			((l == '[') && (r == ']')) ||
+			((l == '<') && (r == '>')) ||
+			((l == '\'') && (r == '\'')) ||
+			((l == '\"') && (r == '\"'));
+	};
+
+	auto scan = [is_left, is_right, is_match, is_quot](const char* code)
+	{
+		LinkStack<char> stack;
+		int i = 0;
+		bool ret = true;
+
+		code = (code == nullptr) ? "" : code;
+
+		while (ret && (code[i] != '\0'))
+		{
+			if (is_left(code[i]))
+				stack.push(code[i]);
+			else if (is_right(code[i]))
+			{
+				if ((stack.size() > 0) && is_match(stack.top(), code[i]))
+					stack.pop();
+				else
+					ret = false;
+			}
+			else if (is_quot(code[i]))
+			{
+				if ((stack.size() == 0) || !is_match(stack.top(), code[i]))
+					stack.push(code[i]);
+				else if (is_match(stack.top(), code[i]))
+					stack.pop();
+			}
+			i++;
+		}
+
+		return ret && (stack.size() == 0);
+	};
+
+	cout << scan("else if (is_quot(code[i])){if ((stack.size() == 0) || !is_match(stack.top(), code[i]))stack.push(code[i]);else if (is_match(stack.top(), code[i]))stack.pop();}") << endl;
 }
