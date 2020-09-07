@@ -78,6 +78,12 @@
     <ClInclude Include="LinkStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticQueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exception.cpp">

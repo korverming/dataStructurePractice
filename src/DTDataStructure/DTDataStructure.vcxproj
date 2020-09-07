@@ -164,6 +164,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Pointer.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="SeqList.h" />
     <ClInclude Include="SharedPointer.h" />
     <ClInclude Include="SmartPointer.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="StaticArray.h" />
     <ClInclude Include="StaticLinkList.h" />
     <ClInclude Include="StaticList.h" />
+    <ClInclude Include="StaticQueue.h" />
     <ClInclude Include="StaticStack.h" />
   </ItemGroup>
   <ItemGroup>

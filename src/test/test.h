@@ -11,6 +11,7 @@
 #include "DualCircleList.h"
 #include "StaticStack.h"
 #include "LinkStack.h"
+#include "StaticQueue.h"
 
 using namespace DTLib;
 using namespace std;
@@ -651,4 +652,18 @@ void test35_1()
 	};
 
 	cout << scan("else if (is_quot(code[i])){if ((stack.size() == 0) || !is_match(stack.top(), code[i]))stack.push(code[i]);else if (is_match(stack.top(), code[i]))stack.pop();}") << endl;
+}
+
+void test36_1()
+{
+	StaticQueue<int, 5> queue;
+
+	for (int i = 0; i < 5; i++)
+		queue.add(i);
+
+	while (queue.length() > 0)
+	{
+		cout << queue.front() << endl;
+		queue.remove();
+	}
 }
