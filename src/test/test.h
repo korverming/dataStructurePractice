@@ -12,6 +12,7 @@
 #include "StaticStack.h"
 #include "LinkStack.h"
 #include "StaticQueue.h"
+#include "LinkQueue.h"
 
 using namespace DTLib;
 using namespace std;
@@ -665,5 +666,22 @@ void test36_1()
 	{
 		cout << queue.front() << endl;
 		queue.remove();
+
+	}
+}
+
+void test37_1()
+{
+	LinkQueue<int> lq;
+
+	for (int i = 0; i < 10; i++)
+	{
+		lq.add(i);
+	}
+
+	while (lq.length() > 0)
+	{
+		cout << lq.front() << endl;
+		lq.remove();
 	}
 }
