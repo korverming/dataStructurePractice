@@ -176,6 +176,8 @@
     <ClInclude Include="StaticList.h" />
     <ClInclude Include="StaticQueue.h" />
     <ClInclude Include="StaticStack.h" />
+    <ClInclude Include="Tree.h" />
+    <ClInclude Include="TreeNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exception.cpp" />

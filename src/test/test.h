@@ -14,6 +14,7 @@
 #include "StaticQueue.h"
 #include "LinkQueue.h"
 #include "LinuxLinkQueue.h"
+#include "Tree.h"
 
 using namespace DTLib;
 using namespace std;
@@ -701,4 +702,10 @@ void test37_2()
 		cout << lq.front() << endl;
 		lq.remove();
 	}
+}
+
+void test51_1()
+{
+	Tree<int>* t;
+	TreeNode<int>* tn;
 }
