@@ -158,6 +158,8 @@
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="DynamicList.h" />
     <ClInclude Include="Exception.h" />
+    <ClInclude Include="GTree.h" />
+    <ClInclude Include="GTreeNode.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="LinkQueue.h" />
     <ClInclude Include="LinkStack.h" />

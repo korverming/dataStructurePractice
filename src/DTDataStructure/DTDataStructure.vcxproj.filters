@@ -96,6 +96,12 @@
     <ClInclude Include="Tree.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="GTreeNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exception.cpp">
