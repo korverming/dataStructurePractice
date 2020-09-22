@@ -51,6 +51,20 @@ protected:
 		return ret;
 	}
 
+	void free(GTreeNode<T>* node)
+	{
+		if (node != nullptr)
+		{
+			for (node->child.move(0); !node->child.end(); node->child.next())
+			{
+				free(node->child.current());
+			}
+
+			if (node->flag())
+				delete node;
+		}
+	}
+
 public:
 
 	bool insert(TreeNode<T>* node) override
@@ -102,7 +116,7 @@ public:
 	bool insert(const T& value, TreeNode<T>* parent) override
 	{
 		bool ret = true;
-		GTreeNode<T>* node = new GTreeNode<T>();
+		GTreeNode<T>* node = GTreeNode<T>::NewNode();
 
 		if (node != nullptr)
 		{
@@ -165,6 +179,8 @@ public:
 
 	void clear() override
 	{
+		free(root());
+
 		this->m_root = nullptr;
 	}
 
