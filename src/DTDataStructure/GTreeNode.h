@@ -13,6 +13,9 @@ class GTreeNode : public TreeNode<T>
 protected:
 	bool m_flag;
 
+	GTreeNode(const GTreeNode<T>&);
+	GTreeNode<T>& operator=(const GTreeNode<T>&);
+
 	void* operator new(size_t size) throw()
 	{
 		return Object::operator new(size);
