@@ -1012,3 +1012,12 @@ void test61_1()
 	BTree<int> bt;
 	BTreeNode<int> btn;
 }
+
+void test62_1()
+{
+	BTree<int> bt;
+	BTreeNode<int> btn;
+
+	bt.find(1);
+	bt.find(&btn);
+}
