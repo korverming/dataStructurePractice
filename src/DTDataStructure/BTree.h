@@ -9,6 +9,13 @@
 namespace DTLib
 {
 
+enum BTNodePos
+{
+	ANY,
+	LEFT,
+	RIGHT
+};
+
 template<typename T>
 class BTree : public Tree<T>
 {
@@ -55,15 +62,108 @@ protected:
 		return ret;
 	}
 
+	virtual bool insert(BTreeNode<T>* n, BTreeNode<T>* np, BTNodePos pos)
+	{
+		bool ret = true;
+
+		if (pos == ANY)
+		{
+			if (np->left == nullptr)
+				np->left = n;
+			else if (np->right == nullptr)
+				np->right = n;
+			else
+				ret = false;
+		}
+		else if (pos == LEFT)
+		{
+			if (np->left == nullptr)
+				np->left = n;
+			else
+				ret = false;
+		}
+		else if (pos == RIGHT)
+		{
+			if (np->right == nullptr)
+				np->right = n;
+			else
+				ret = false;
+		}
+		else
+			ret = false;
+
+		return ret;
+	}
+
 public:
 	bool insert(TreeNode<T>* node) override
 	{
-		return false;
+		return insert(node, ANY);
+	}
+
+	virtual bool insert(TreeNode<T>* node, BTNodePos pos)
+	{
+		bool ret = true;
+
+		if (node != nullptr)
+		{
+			if (this->m_root == nullptr)
+			{
+				node->parent = nullptr;
+				this->m_root = node;
+			}
+			else
+			{
+				BTreeNode<T>* np = find(node->parent);
+
+				if (np != nullptr)
+					ret = insert(dynamic_cast<BTreeNode<T>*>(node), np, pos);
+				else
+					THROW_EXCEPTION
+					(
+						InvalidParameterException,
+						"Invalid parent tree node ..."
+					);
+			}
+		}
+		else
+			THROW_EXCEPTION
+			(
+				InvalidParameterException,
+				"Parameter node can't be null"
+			);
+
+		return ret;
 	}
 
 	bool insert(const T& value, TreeNode<T>* parent) override
 	{
-		return false;
+		return insert(value, parent, ANY);
+	}
+
+	virtual bool insert(const T& value, TreeNode<T>* parent, BTNodePos pos)
+	{
+		bool ret = true;
+		BTreeNode<T>* node = BTreeNode<T>::NewNode();
+
+		if (node == nullptr)
+			THROW_EXCEPTION
+			(
+				NoEnoughMemoryException,
+				"No memory to create new node ..."
+			);
+		else
+		{
+			node->value = value;
+			node->parent = parent;
+
+			ret = insert(node, pos);
+
+			if (!ret)
+				delete node;
+		}
+
+		return ret;
 	}
 
 	SharedPointer<Tree<T>> remove(const T& value) override
