@@ -95,6 +95,48 @@ protected:
 		return ret;
 	}
 
+	virtual void remove(BTreeNode<T>* node, BTree<T>*& ret)
+	{
+		ret = new BTree<T>();
+
+		if (ret == nullptr)
+			THROW_EXCEPTION
+			(
+				NoEnoughMemoryException,
+				"No memory to create new tree ..."
+			);
+		else
+		{
+			if (root() == node)
+				this->m_root = nullptr;
+			else
+			{
+				BTreeNode<T>* parent = dynamic_cast<BTreeNode<T>*>(node->parent);
+
+				if (parent->left == node)
+					parent->left = nullptr;
+				else if (parent->right == node)
+					parent->right = nullptr;
+
+				node->parent = nullptr;
+			}
+
+			ret->m_root = node;
+		}
+	}
+
+	virtual void free(BTreeNode<T>* node)
+	{
+		if (node != nullptr)
+		{
+			free(node->left);
+			free(node->right);
+
+			if (node->flag())
+				delete node;
+		}
+	}
+
 public:
 	bool insert(TreeNode<T>* node) override
 	{
@@ -168,12 +210,41 @@ public:
 
 	SharedPointer<Tree<T>> remove(const T& value) override
 	{
-		return nullptr;
+		BTree<T>* ret = nullptr;
+		BTreeNode<T>* node = find(value);
+
+		if (node == nullptr)
+			THROW_EXCEPTION
+			(
+				InvalidParameterException,
+				"Can not find the tree node via value ..."
+			);
+		else
+		{
+			remove(node, ret);
+		}
+
+		return ret;
 	}
 
 	SharedPointer<Tree<T>> remove(TreeNode<T>* node) override
 	{
-		return nullptr;
+		BTree<T>* ret = nullptr;
+
+		node = find(node);
+
+		if (node == nullptr)
+			THROW_EXCEPTION
+			(
+				InvalidParameterException,
+				"Parameter node is invalid ..."
+			);
+		else
+		{
+			remove(dynamic_cast<BTreeNode<T>*>(node), ret);
+		}
+
+		return ret;
 	}
 
 	BTreeNode<T>* find(const T& value) const override
@@ -208,6 +279,8 @@ public:
 
 	void clear() override
 	{
+		free(root());
+
 		this->m_root = nullptr;
 	}
 
