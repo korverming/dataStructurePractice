@@ -137,6 +137,55 @@ protected:
 		}
 	}
 
+	int count(BTreeNode<T>* node) const
+	{
+		/*int ret = 0;
+
+		if (node != nullptr)
+			ret = count(node->left) + count(node->right) + 1;
+
+		return ret;*/
+
+		return (node != nullptr) ? (count(node->left) + count(node->right) + 1) : 0;
+	}
+
+	int height(BTreeNode<T>* node) const
+	{
+		int ret = 0;
+
+		if (node != nullptr)
+		{
+			int lh = height(node->left);
+			int rh = height(node->right);
+
+			ret = ((lh > rh) ? lh : rh) + 1;
+		}
+
+		return ret;
+	}
+
+	int degree(BTreeNode<T>* node) const
+	{
+		int ret = 0;
+
+		if (node != nullptr)
+		{
+			BTreeNode<T>* child[] = { node->left, node->right };
+
+			ret = (!!node->left + !!node->right);
+
+			for (int i = 0; (i < 2) && (ret < 2); i++)
+			{
+				int d = degree(child[i]);
+
+				if (ret < d)
+					ret = d;
+			}
+		}
+
+		return ret;
+	}
+
 public:
 	bool insert(TreeNode<T>* node) override
 	{
@@ -264,17 +313,17 @@ public:
 
 	int degree() const override
 	{
-		return 0;
+		return degree(root());
 	}
 
 	int count() const override
 	{
-		return 0;
+		return count(root());
 	}
 
 	int height() const override
 	{
-		return 0;
+		return height(root());
 	}
 
 	void clear() override

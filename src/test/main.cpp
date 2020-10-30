@@ -4,6 +4,6 @@ using namespace std;
 
 int main()
 {
-	test64_1();
+	test65_1();
 	return 0;
 }
