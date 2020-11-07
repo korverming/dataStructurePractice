@@ -20,6 +20,8 @@ template<typename T>
 class BTree : public Tree<T>
 {
 protected:
+	LinuxLinkQueue<BTreeNode<T>*> m_queue;
+
 	virtual BTreeNode<T>* find(BTreeNode<T>* node, const T& value) const
 	{
 		BTreeNode<T>* ret = nullptr;
@@ -271,6 +273,8 @@ public:
 		else
 		{
 			remove(node, ret);
+
+			m_queue.clear();
 		}
 
 		return ret;
@@ -291,6 +295,8 @@ public:
 		else
 		{
 			remove(dynamic_cast<BTreeNode<T>*>(node), ret);
+
+			m_queue.clear();
 		}
 
 		return ret;
@@ -330,7 +336,59 @@ public:
 	{
 		free(root());
 
+		m_queue.clear();
+
 		this->m_root = nullptr;
+	}
+
+	bool begin() override
+	{
+		bool ret = (root() != nullptr);
+
+		if (ret)
+		{
+			m_queue.clear();
+			m_queue.add(root());
+		}
+
+		return ret;
+	}
+
+	bool end() override
+	{
+		return (m_queue.length() == 0);
+	}
+
+	bool next() override
+	{
+		bool ret = (m_queue.length() > 0);
+
+		if (ret)
+		{
+			BTreeNode<T>* node = m_queue.front();
+
+			m_queue.remove();
+
+			if (node->left != nullptr)
+				m_queue.add(node->left);
+
+			if (node->right != nullptr)
+				m_queue.add(node->right);
+		}
+
+		return ret;
+	}
+
+	T current() override
+	{
+		if (!end())
+			return m_queue.front()->value;
+		else
+			THROW_EXCEPTION
+			(
+				InvalidOperationException,
+				"No value at current position ..."
+			);
 	}
 
 	~BTree()

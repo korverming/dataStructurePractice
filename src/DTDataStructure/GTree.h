@@ -311,7 +311,7 @@ public:
 		m_queue.clear();
 	}
 
-	bool begin()
+	bool begin() override
 	{
 		bool ret = (root() != nullptr);
 
@@ -324,12 +324,12 @@ public:
 		return ret;
 	}
 
-	bool end()
+	bool end() override
 	{
 		return (m_queue.length() == 0);
 	}
 
-	bool next()
+	bool next() override
 	{
 		bool ret = (m_queue.length() > 0);
 
@@ -346,7 +346,7 @@ public:
 		return ret;
 	}
 
-	T current()
+	T current() override
 	{
 		if (!end())
 			return m_queue.front()->value;
