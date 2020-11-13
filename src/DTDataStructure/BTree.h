@@ -5,15 +5,16 @@
 #include "BTreeNode.h"
 #include "Exception.h"
 #include "LinuxLinkQueue.h"
+#include "DynamicArray.h"
 
 namespace DTLib
 {
 
-enum BTNodePos
+enum BTTraversal
 {
-	ANY,
-	LEFT,
-	RIGHT
+	PreOrder,
+	InOrder,
+	PostOrder
 };
 
 template<typename T>
@@ -186,6 +187,36 @@ protected:
 		}
 
 		return ret;
+	}
+
+	void preOrderTraversal(BTreeNode<T>* node, LinuxLinkQueue<BTreeNode<T>*>& queue)
+	{
+		if (node != nullptr)
+		{
+			queue.add(node);
+			preOrderTraversal(node->left, queue);
+			preOrderTraversal(node->right, queue);
+		}
+	}
+
+	void inOrderTraversal(BTreeNode<T>* node, LinuxLinkQueue<BTreeNode<T>*>& queue)
+	{
+		if (node != nullptr)
+		{
+			inOrderTraversal(node->left, queue);
+			queue.add(node);
+			inOrderTraversal(node->right, queue);
+		}
+	}
+
+	void postOrderTraversal(BTreeNode<T>* node, LinuxLinkQueue<BTreeNode<T>*>& queue)
+	{
+		if (node != nullptr)
+		{
+			postOrderTraversal(node->left, queue);
+			postOrderTraversal(node->right, queue);
+			queue.add(node);
+		}
 	}
 
 public:
@@ -389,6 +420,52 @@ public:
 				InvalidOperationException,
 				"No value at current position ..."
 			);
+	}
+
+	SharedPointer<Array<T>> traversal(BTTraversal order)
+	{
+		DynamicArray<T>* ret = nullptr;
+		LinuxLinkQueue<BTreeNode<T>*> queue;
+
+		switch (order)
+		{
+		case PreOrder:
+			preOrderTraversal(root(), queue);
+			break;
+
+		case InOrder:
+			inOrderTraversal(root(), queue);
+			break;
+
+		case PostOrder:
+			postOrderTraversal(root(), queue);
+			break;
+
+		default:
+			THROW_EXCEPTION
+			(
+				InvalidParameterException, 
+				"Parameter order is invalid ..."
+			);
+			break;
+		}
+
+		ret = new DynamicArray<T>(queue.length());
+
+		if (ret != nullptr)
+		{
+			for (int i = 0; i < ret->length(); i++, queue.remove())
+				ret->set(i, queue.front()->value);
+		}
+		else
+		{
+			THROW_EXCEPTION
+			(
+				NoEnoughMemoryException,
+				"No memory to create return array ..."
+			);
+		}
+		return ret;
 	}
 
 	~BTree()
