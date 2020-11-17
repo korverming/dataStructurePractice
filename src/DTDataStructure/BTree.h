@@ -252,6 +252,20 @@ protected:
 		return ret;
 	}
 
+	bool equal(BTreeNode<T>* lh, BTreeNode<T>* rh) const
+	{
+		if (lh == rh)
+			return true;
+		else if ((lh != nullptr) && (rh != nullptr))
+		{
+			return (lh->value == rh->value) &&
+				equal(lh->left, rh->left) &&
+				equal(lh->right, rh->right);
+		}
+		else
+			return false;
+	}
+
 public:
 	bool insert(TreeNode<T>* node) override
 	{
@@ -519,6 +533,16 @@ public:
 		}
 
 		return ret;
+	}
+
+	bool operator==(const BTree<T>& btree)
+	{
+		return equal(root(), btree.root());
+	}
+
+	bool operator!=(const BTree<T>& btree)
+	{
+		return !(*this == btree);
 	}
 
 	~BTree()
