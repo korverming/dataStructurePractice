@@ -266,6 +266,41 @@ protected:
 			return false;
 	}
 
+	BTreeNode<T>* add(BTreeNode<T>* lh, BTreeNode<T>* rh) const
+	{
+		BTreeNode<T>* ret = nullptr;
+
+		if ((lh == nullptr) && (rh != nullptr))
+			ret = clone(rh);
+		else if ((lh != nullptr) && (rh == nullptr))
+			ret = clone(lh);
+		else if ((lh != nullptr) && (rh != nullptr))
+		{
+			ret = BTreeNode<T>::NewNode();
+
+			if (ret != nullptr)
+			{
+				ret->value = lh->value + rh->value;
+				ret->left = add(lh->left, rh->left);
+				ret->right = add(lh->right, rh->right);
+
+				if (ret->left != nullptr)
+					ret->left->parent = ret;
+
+				if (ret->right != nullptr)
+					ret->right->parent = ret;
+			}
+			else
+				THROW_EXCEPTION
+				(
+					NoEnoughMemoryException,
+					"No memory to create new node ..."
+				);
+		}
+
+		return ret;
+	}
+
 public:
 	bool insert(TreeNode<T>* node) override
 	{
@@ -543,6 +578,22 @@ public:
 	bool operator!=(const BTree<T>& btree)
 	{
 		return !(*this == btree);
+	}
+
+	SharedPointer<BTree<T>> add(const BTree<T>& btree) const
+	{
+		BTree<T>* ret = new BTree<T>();
+
+		if (ret != nullptr)
+			ret->m_root = add(root(), btree.root());
+		else
+			THROW_EXCEPTION
+			(
+				NoEnoughMemoryException,
+				"No memory to create new tree ..."
+			);
+
+		return ret;
 	}
 
 	~BTree()

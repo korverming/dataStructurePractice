@@ -1385,3 +1385,78 @@ void test68_2()
 
 }
 
+void test68_3()
+{
+	BTree<int> bt;
+	BTreeNode<int>* n = nullptr;
+
+	bt.insert(1, nullptr);
+
+	n = bt.find(1);
+	bt.insert(2, n);
+	bt.insert(3, n);
+
+	n = bt.find(2);
+	bt.insert(4, n);
+	bt.insert(5, n);
+
+	n = bt.find(4);
+	bt.insert(8, n);
+	bt.insert(9, n);
+
+	n = bt.find(5);
+	bt.insert(10, n);
+
+	n = bt.find(3);
+	bt.insert(6, n);
+	bt.insert(7, n);
+
+	cout << bt.count() << endl;
+	cout << bt.height() << endl;
+	cout << bt.degree() << endl;
+
+	SharedPointer<BTree<int>> btClone = bt.clone();
+
+	cout << "bt == *btClone: " << (bt == *btClone) << endl;
+
+	BTree<int> nbt;
+
+	nbt.insert(0, nullptr);
+
+	n = nbt.find(0);
+	nbt.insert(6, n);
+	nbt.insert(2, n);
+
+	n = nbt.find(2);
+	nbt.insert(7, n);
+	nbt.insert(8, n);
+
+	SharedPointer<BTree<int>> r = bt.add(nbt);
+
+	int a[] = { 8, 9, 10, 13, 5 };
+
+	cout << "Add result: " << endl;
+	for (int i = 0; i < 5; i++)
+	{
+		TreeNode<int>* node = r->find(a[i]);
+
+		while (node)
+		{
+			cout << node->value << " ";
+			node = node->parent;
+		}
+
+		cout << endl;
+	}
+
+	cout << endl;
+
+	SharedPointer<Array<int>> tr = r->traversal(PreOrder);
+
+	for (int i = 0; i < tr->length(); i++)
+		cout << (*tr)[i] << " ";
+
+	cout << endl;
+
+}
+
