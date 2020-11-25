@@ -14,7 +14,8 @@ enum BTTraversal
 {
 	PreOrder,
 	InOrder,
-	PostOrder
+	PostOrder,
+	LevelOrder
 };
 
 template<typename T>
@@ -219,6 +220,30 @@ protected:
 		}
 	}
 
+	void levelOrderTraversal(BTreeNode<T>* node, LinuxLinkQueue<BTreeNode<T>*>& queue)
+	{
+		if (node != nullptr)
+		{
+			LinuxLinkQueue<BTreeNode<T>*> tmp;
+
+			tmp.add(node);
+
+			while (tmp.length() > 0)
+			{
+				BTreeNode<T>* n = tmp.front();
+
+				if (n->left != nullptr)
+					tmp.add(n->left);
+
+				if (n->right != nullptr)
+					tmp.add(n->right);
+
+				tmp.remove();
+				queue.add(n);
+			}
+		}
+	}
+
 	BTreeNode<T>* clone(BTreeNode<T>* node) const
 	{
 		BTreeNode<T>* ret = nullptr;
@@ -296,6 +321,64 @@ protected:
 					NoEnoughMemoryException,
 					"No memory to create new node ..."
 				);
+		}
+
+		return ret;
+	}
+
+	void traversal(BTTraversal order, LinuxLinkQueue<BTreeNode<T>*>& queue)
+	{
+		switch (order)
+		{
+		case PreOrder:
+			preOrderTraversal(root(), queue);
+			break;
+
+		case InOrder:
+			inOrderTraversal(root(), queue);
+			break;
+
+		case PostOrder:
+			postOrderTraversal(root(), queue);
+			break;
+
+		case LevelOrder:
+			levelOrderTraversal(root(), queue);
+			break;
+
+		default:
+			THROW_EXCEPTION
+			(
+				InvalidParameterException,
+				"Parameter order is invalid ..."
+			);
+			break;
+		}
+	}
+
+	BTreeNode<T>* connect(LinuxLinkQueue<BTreeNode<T>*>& queue)
+	{
+		BTreeNode<T>* ret = nullptr;
+
+		if (queue.length() > 0)
+		{
+			ret = queue.front();
+
+			BTreeNode<T>* slider = queue.front();
+
+			queue.remove();
+
+			slider->left = nullptr;
+
+			while (queue.length() > 0)
+			{
+				slider->right = queue.front();
+				queue.front()->left = slider;
+				slider = queue.front();
+				queue.remove();
+			}
+
+			slider->right = nullptr;
 		}
 
 		return ret;
@@ -509,28 +592,7 @@ public:
 		DynamicArray<T>* ret = nullptr;
 		LinuxLinkQueue<BTreeNode<T>*> queue;
 
-		switch (order)
-		{
-		case PreOrder:
-			preOrderTraversal(root(), queue);
-			break;
-
-		case InOrder:
-			inOrderTraversal(root(), queue);
-			break;
-
-		case PostOrder:
-			postOrderTraversal(root(), queue);
-			break;
-
-		default:
-			THROW_EXCEPTION
-			(
-				InvalidParameterException, 
-				"Parameter order is invalid ..."
-			);
-			break;
-		}
+		traversal(order, queue);
 
 		ret = new DynamicArray<T>(queue.length());
 
@@ -547,6 +609,22 @@ public:
 				"No memory to create return array ..."
 			);
 		}
+		return ret;
+	}
+
+	BTreeNode<T>* thread(BTTraversal order)
+	{
+		BTreeNode<T>* ret = nullptr;
+		LinuxLinkQueue<BTreeNode<T>*> queue;
+
+		traversal(order, queue);
+
+		ret = connect(queue);
+
+		this->m_root = nullptr;
+
+		m_queue.clear();
+
 		return ret;
 	}
 
