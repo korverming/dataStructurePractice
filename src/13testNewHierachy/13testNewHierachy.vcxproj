@@ -23,7 +23,7 @@
     <ProjectGuid>{CB5ECD8E-2E50-462F-B36A-0370F2DC2B84}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My13testNewHierachy</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <ProjectName>13testNewHierachy</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

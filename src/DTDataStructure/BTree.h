@@ -17,6 +17,48 @@ enum BTTraversal
 	PostOrder,
 	LevelOrder
 };
+template <typename T>
+BTreeNode<T>* delOdd1(BTreeNode<T>* node)
+{
+	BTreeNode<T>* ret = nullptr;
+
+	if (node != nullptr)
+	{
+		if
+		(
+			(node->left != nullptr) && (node->right == nullptr) ||
+			(node->left == nullptr) && (node->right != nullptr)
+		)
+		{
+			BTreeNode<T>* parent = dynamic_cast<BTreeNode<T>*>(node->parent);
+			BTreeNode<T>* node_child = (node->left != nullptr) ? node->left : node->right;
+
+			if (parent != nullptr)
+			{
+				BTreeNode<T>*& parent_child =
+					(parent->left == node) ? parent->left : parent->right;
+				parent_child = node_child;
+				node_child->parent = parent;
+			}
+			else
+				node_child->parent = nullptr;
+
+			if (node->flag())
+				delete node;
+
+			ret = delOdd1(node_child);
+		}
+		else
+		{
+			delOdd1(node->left);
+			delOdd1(node->right);
+
+			ret = node;
+		}
+	}
+
+	return ret;
+}
 
 template<typename T>
 class BTree : public Tree<T>

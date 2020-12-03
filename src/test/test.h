@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <functional>
 #include "LinkList.h"
 #include "StaticLinkList.h"
 #include "DynamicArray.h"
@@ -1544,6 +1545,7 @@ void test69_2()
 	//	head = head->right;
 	//}
 
+
 	while (head->right != nullptr)
 	{
 		head = head->right;
@@ -1558,3 +1560,90 @@ void test69_2()
 	cout << endl;
 }
 
+void test70_1()
+{
+	auto createTree = []()
+	{
+		static BTreeNode<int> ns[9];
+
+		for (int i = 0; i < 9; i++)
+		{
+			ns[i].value = i;
+			ns[i].parent = nullptr;
+			ns[i].left = nullptr;
+			ns[i].right = nullptr;
+		}
+
+		ns[0].left = &ns[1];
+		ns[0].right = &ns[2];
+		ns[1].parent = &ns[0];
+		ns[2].parent = &ns[0];
+
+		ns[1].left = &ns[3];
+		ns[1].right = nullptr;
+		ns[3].parent = &ns[1];
+
+		ns[2].left = &ns[4];
+		ns[2].right = &ns[5];
+		ns[4].parent = &ns[2];
+		ns[5].parent = &ns[2];
+
+		ns[3].left = nullptr;
+		ns[3].right = &ns[6];
+		ns[6].parent = &ns[3];
+
+		ns[4].left = &ns[7];
+		ns[4].right = nullptr;
+		ns[7].parent = &ns[4];
+
+		ns[5].left = &ns[8];
+		ns[5].right = nullptr;
+		ns[8].parent = &ns[5];
+
+		return ns;
+	};
+
+	function<void(BTreeNode<int>*)> printInOrder = 
+	[&](BTreeNode<int>* node)
+	{
+		if (node != nullptr)
+		{
+			printInOrder(node->left);
+
+			cout << node->value << " ";
+
+			printInOrder(node->right);
+		}
+	};
+
+	BTreeNode<int>* ns = createTree();
+
+	printInOrder(ns);
+
+	cout << endl;
+
+	ns = delOdd1(ns);
+
+	printInOrder(ns);
+
+	cout << endl;
+
+	int a[] = {6, 7, 8};
+
+	for (int i = 0; i < 3; i++)
+	{
+		TreeNode<int>* n = ns + a[i];
+
+		while (n != nullptr)
+		{
+			cout << n->value << " ";
+
+			n = n->parent;
+		}
+
+		cout << endl;
+	}
+
+	cout << endl;
+
+}
