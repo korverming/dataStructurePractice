@@ -17,6 +17,7 @@ enum BTTraversal
 	PostOrder,
 	LevelOrder
 };
+
 template <typename T>
 BTreeNode<T>* delOdd1(BTreeNode<T>* node)
 {
@@ -58,6 +59,35 @@ BTreeNode<T>* delOdd1(BTreeNode<T>* node)
 	}
 
 	return ret;
+}
+
+template <typename T>
+void delOdd2(BTreeNode<T>*& node)
+{
+	if (node != nullptr)
+	{
+		if
+		(
+			(node->left != nullptr) && (node->right == nullptr) ||
+			(node->left == nullptr) && (node->right != nullptr)
+		)
+		{
+			BTreeNode<T>* node_child =
+				(node->left != nullptr) ? node->left : node->right;
+
+			if (node->flag())
+				delete node;
+
+			node = node_child;
+
+			delOdd2(node);
+		}
+		else
+		{
+			delOdd2(node->left);
+			delOdd2(node->right);
+		}
+	}
 }
 
 template<typename T>
