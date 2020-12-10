@@ -91,6 +91,39 @@ void delOdd2(BTreeNode<T>*& node)
 }
 
 template<typename T>
+void inOrderThread(BTreeNode<T>* node, BTreeNode<T>*& pre)
+{
+	if (node != nullptr)
+	{
+		inOrderThread(node->left, pre);
+
+		node->left = pre;
+
+		if (pre != nullptr)
+		{
+			pre->right = node;
+		}
+
+		pre = node;
+
+		inOrderThread(node->right, pre);
+	}
+}
+
+template <typename T>
+BTreeNode<T>* inOrderThread1(BTreeNode<T>* node)
+{
+	BTreeNode<T>* pre = nullptr;
+
+	inOrderThread(node, pre);
+
+	while ((node != nullptr) && (node->left != nullptr))
+		node = node->left;
+
+	return node;
+}
+
+template<typename T>
 class BTree : public Tree<T>
 {
 protected:
