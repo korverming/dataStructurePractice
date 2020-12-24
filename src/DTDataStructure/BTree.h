@@ -123,6 +123,53 @@ BTreeNode<T>* inOrderThread1(BTreeNode<T>* node)
 	return node;
 }
 
+template <typename T>
+void inOrderThread2
+(
+	BTreeNode<T>* node,
+	BTreeNode<T>*& head,
+	BTreeNode<T>*& tail
+)
+{
+	if (node != nullptr)
+	{
+		BTreeNode<T>* h = nullptr;
+		BTreeNode<T>* t = nullptr;
+
+		inOrderThread2(node->left, h, t);
+
+		node->left = t;
+
+		if (t != nullptr)
+			t->right = node;
+
+		head = (h != nullptr) ? h : node;
+
+		h = nullptr;
+		t = nullptr;
+
+		inOrderThread2(node->right, h, t);
+
+		node->right = h;
+
+		if (h != nullptr)
+			h->left = node;
+
+		tail = (t != nullptr) ? t : node;
+	}
+}
+
+template <typename T>
+BTreeNode<T>* inOrderThread2(BTreeNode<T>* node)
+{
+	BTreeNode<T>* head = nullptr;
+	BTreeNode<T>* tail = nullptr;
+
+	inOrderThread2(node, head, tail);
+
+	return head;
+}
+
 template<typename T>
 class BTree : public Tree<T>
 {
