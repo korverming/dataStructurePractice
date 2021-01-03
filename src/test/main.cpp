@@ -1,9 +1,9 @@
 #include "test.h"
-
+#include "sortTest.h"
 using namespace std;
 
 int main()
 {
-	test70_4();
+	quickSortTest();
 	return 0;
 }
