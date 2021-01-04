@@ -2,6 +2,7 @@
 #define Sort_H
 
 #include "Object.h"
+#include "Array.h"
 
 namespace DTLib
 {
@@ -84,6 +85,12 @@ public:
 	static void QuickSort(T array[], int len)
 	{
 		QuickSort(array, 0, len - 1);
+	}
+
+	template <typename T>
+	static void QuickSort(Array<T>& array)
+	{
+		QuickSort(array.array(), array.length());
 	}
 };
 

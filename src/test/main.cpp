@@ -4,6 +4,6 @@ using namespace std;
 
 int main()
 {
-	quickSortTest();
+	quickSortTest2();
 	return 0;
 }
